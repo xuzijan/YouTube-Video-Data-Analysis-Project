@@ -1,0 +1,164 @@
+YOUTUBE VIDEOS DATASET - YEARLY DECOMPOSITION INDEX
+================================================================================
+
+Project Structure:
+  Root Directory: datasets_by_year/
+
+Files Generated:
+  1. youtube_videos_YYYY.csv - Individual year datasets
+  2. yearly_summary.csv - Summary statistics for all years
+  3. yearly_summary_report.txt - Formatted text report
+  4. yearly_statistics_visualization.png - Visual charts
+  5. INDEX.txt - This file
+
+Dataset Overview:
+  Total Videos: 155,669
+  Total Unique Channels: 24,045
+  Date Range: 2006-2025
+  Total Views: 202,593,126,580
+
+Yearly Breakdown:
+©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤
+
+Year 2006:
+  File: youtube_videos_2006.csv
+  Videos: 10
+  Channels: 1
+  Total Views: 7,314,963
+  Avg Views/Video: 731,496
+
+Year 2007:
+  File: youtube_videos_2007.csv
+  Videos: 11
+  Channels: 3
+  Total Views: 6,069,523,362
+  Avg Views/Video: 551,774,851
+
+Year 2008:
+  File: youtube_videos_2008.csv
+  Videos: 15
+  Channels: 6
+  Total Views: 88,404,352
+  Avg Views/Video: 5,893,623
+
+Year 2009:
+  File: youtube_videos_2009.csv
+  Videos: 103
+  Channels: 28
+  Total Views: 4,241,199,828
+  Avg Views/Video: 41,176,697
+
+Year 2010:
+  File: youtube_videos_2010.csv
+  Videos: 40
+  Channels: 24
+  Total Views: 1,553,170,157
+  Avg Views/Video: 38,829,254
+
+Year 2011:
+  File: youtube_videos_2011.csv
+  Videos: 108
+  Channels: 41
+  Total Views: 4,834,045,257
+  Avg Views/Video: 44,759,678
+
+Year 2012:
+  File: youtube_videos_2012.csv
+  Videos: 201
+  Channels: 57
+  Total Views: 1,739,634,828
+  Avg Views/Video: 8,654,900
+
+Year 2013:
+  File: youtube_videos_2013.csv
+  Videos: 330
+  Channels: 97
+  Total Views: 2,110,964,885
+  Avg Views/Video: 6,396,863
+
+Year 2014:
+  File: youtube_videos_2014.csv
+  Videos: 579
+  Channels: 164
+  Total Views: 7,907,482,577
+  Avg Views/Video: 13,657,137
+
+Year 2015:
+  File: youtube_videos_2015.csv
+  Videos: 804
+  Channels: 220
+  Total Views: 8,276,797,784
+  Avg Views/Video: 10,294,525
+
+Year 2016:
+  File: youtube_videos_2016.csv
+  Videos: 1,236
+  Channels: 326
+  Total Views: 5,585,837,342
+  Avg Views/Video: 4,519,286
+
+Year 2017:
+  File: youtube_videos_2017.csv
+  Videos: 2,087
+  Channels: 565
+  Total Views: 9,659,018,809
+  Avg Views/Video: 4,628,183
+
+Year 2018:
+  File: youtube_videos_2018.csv
+  Videos: 2,557
+  Channels: 643
+  Total Views: 17,219,585,276
+  Avg Views/Video: 6,734,292
+
+Year 2019:
+  File: youtube_videos_2019.csv
+  Videos: 3,020
+  Channels: 785
+  Total Views: 10,565,729,261
+  Avg Views/Video: 3,498,586
+
+Year 2020:
+  File: youtube_videos_2020.csv
+  Videos: 3,957
+  Channels: 1,012
+  Total Views: 8,671,736,564
+  Avg Views/Video: 2,191,493
+
+Year 2021:
+  File: youtube_videos_2021.csv
+  Videos: 4,410
+  Channels: 1,170
+  Total Views: 9,996,891,963
+  Avg Views/Video: 2,266,869
+
+Year 2022:
+  File: youtube_videos_2022.csv
+  Videos: 5,171
+  Channels: 1,426
+  Total Views: 11,726,027,688
+  Avg Views/Video: 2,267,652
+
+Year 2023:
+  File: youtube_videos_2023.csv
+  Videos: 8,412
+  Channels: 2,001
+  Total Views: 15,724,883,362
+  Avg Views/Video: 1,869,339
+
+Year 2024:
+  File: youtube_videos_2024.csv
+  Videos: 12,833
+  Channels: 2,931
+  Total Views: 18,091,582,743
+  Avg Views/Video: 1,409,770
+
+Year 2025:
+  File: youtube_videos_2025.csv
+  Videos: 109,785
+  Channels: 12,545
+  Total Views: 58,523,295,579
+  Avg Views/Video: 533,072
+
+================================================================================
+Generated: 2025-11-12 19:19:03
