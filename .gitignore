@@ -21,7 +21,19 @@ engineered_features_raw.csv
 engineered_features_scaled.csv
 youtube_video.csv
 
-# System files
+# Advanced pipeline outputs (large NPY files - keep code/CSV metadata only)
+advanced_outputs/*.npy
+advanced_outputs/video_embedding_index.csv
+advanced_outputs/channel_embedding_index.csv
+advanced_outputs/video_fused_features_index.csv
+advanced_outputs/channel_fused_features_index.csv
+
+# Visualization outputs
+visualization_results/
+
+# Credentials and test files
+credentials.json
+test_*.py
 .DS_Store
 Thumbs.db
 *.swp
