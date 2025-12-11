@@ -1,36 +1,52 @@
-# YouTube Video Data Analysis Project（readme writen by ai）
+# YouTube Video Data Analysis Project
 
 English | [中文](README_CN.md)
 
-A comprehensive data science project analyzing 155,669 YouTube videos across 19 years (2006-2025), featuring advanced feature engineering, machine learning modeling, and interactive visualizations.
+A comprehensive data science project analyzing 155,000+ YouTube videos across 20 years (2006-2025), featuring advanced feature engineering, multi-view embedding fusion, graph analysis, and reproducible modular pipelines.
+
+**Project Status**: ✅ Version 1.0 Complete + ✅ Version 2.0 Complete (Advanced Pipeline)  
+**Total Scope**: 50+ files | 3,500+ lines of code | 2.5 GB data | 20-year timeline
 
 ---
 
 ## Project Overview
 
-This project applies data science methodologies to YouTube video data, including:
-- Feature engineering (9 → 59 features)
+This project provides **two complementary versions**:
+
+### Version 1.0: Classical ML Pipeline (5-Stage Notebook Analysis)
+- Feature engineering (9 → 59 dimensions)
 - Exploratory Data Analysis (EDA)
 - Machine learning classification and clustering
 - Predictive modeling
 - Interactive dashboards
 
+### Version 2.0: Advanced Pipeline (Modular Python Framework)
+- **Local sentence-transformer embeddings** (384D) for semantic understanding
+- **Multi-view feature fusion** (443D total: 59 engineered + 384 embedding)
+- **Graph construction** with cosine similarity (15,863 nodes, 317K edges)
+- **Dual clustering**: KMeans (embedding space) + Louvain (graph space)
+- **Temporal evolution analysis** across 20 years
+- **Theory-grounded derivations** with full documentation
+
 ### Key Metrics
 
 | Metric | Value | Description |
 |--------|-------|-------------|
-| **Data Size** | 155,669 records | 19-year historical data |
-| **Features** | 59 engineered | 6.5x expansion from 9 original |
-| **Classification** | High accuracy | Random Forest classifier |
-| **Clustering** | Optimal K determined | K-means with silhouette analysis |
-| **Visualizations** | 11 charts | High-resolution (300 DPI) |
-| **Notebooks** | 5 complete | Full analysis pipeline |
+| **Dataset** | 155,704 videos | 2006-2025 (20 years) |
+| **Channels** | 15,863 unique | Global diversity |
+| **Features (v1.0)** | 59 engineered | 6.5x expansion from 9 original |
+| **Embeddings (v2.0)** | 384D + 59D | Fused 443-dimensional vectors |
+| **Graph (v2.0)** | 317K edges | Top-K cosine similarity |
+| **Clusters (v2.0)** | 10 + 17 | KMeans + Louvain communities |
+| **Visualizations** | 20+ charts | High-resolution (300 DPI) |
+| **Notebooks (v1.0)** | 5 complete | Full analysis pipeline |
+| **Python modules (v2.0)** | 8 modular | Reproducible, theory-grounded |
 
 ---
 
 ## Project Structure
 
-### Analysis Notebooks (5 Files)
+### Version 1.0: Core Notebooks (5 files)
 
 ```
 phase1_youtube_year_analysis.ipynb      Data preprocessing and yearly analysis
@@ -40,294 +56,316 @@ phase4_clustering_prediction.ipynb      ML modeling (classification, clustering,
 phase5_insights_dashboard.ipynb         Interactive dashboards
 ```
 
+### Version 2.0: Advanced Pipeline Modules
+
+```
+advanced/
+├── __init__.py
+├── config.py                           Global configuration management
+├── run_pipeline.py                     Main pipeline entry point
+│
+├── llm_embeddings.py                   Stage 1: Local sentence-transformer embeddings
+├── feature_fusion.py                   Stage 2: Multi-view feature fusion (443D)
+├── graph_construction.py               Stage 3: Channel similarity graph (cosine top-K)
+├── community_detection.py              Stage 4: Dual clustering (KMeans + Louvain)
+├── temporal_analysis.py                Stage 5: Year-wise temporal evolution
+└── export_for_web.py                   Web export (reserved for v3.0)
+
+resultphoto.py                          Advanced visualization generation script
+```
+
 ### Data Files
 
 ```
-youtube_video.csv                       Original dataset (32 MB)
-engineered_features_raw.csv             Raw engineered features (109 MB)
-engineered_features_scaled.csv          Scaled features (207 MB)
+youtube_video.csv                       Original dataset (~155K videos)
+engineered_features_raw.csv             Raw engineered features (59D)
+engineered_features_scaled.csv          Scaled engineered features (59D, normalized)
 feature_engineering_metadata.json       Feature metadata
-datasets_by_year/                       20 yearly datasets (2006-2025)
-```
 
-### Visualizations (11 PNG Files in photo/)
-
-```
-Dashboard Visualizations (3 files):
-  dashboard_overview.png                Overall data overview
-  dashboard_classification.png          Classification model performance
-  dashboard_clustering.png              Clustering analysis results
-
-EDA Analysis Charts (5 files):
-  top_videos_analysis.png               Top videos analysis
-  engagement_analysis.png               Engagement rate analysis
-  temporal_patterns.png                 Temporal patterns
-  channel_comparison.png                Channel comparison
-  feature_correlation_heatmap.png       Feature correlation heatmap
-  feature_variance.png                  Feature variance analysis
-
-ML Model Results (3 files):
-  classification_analysis.png           Classification results
-  channel_clustering_analysis.png       Channel clustering results
+datasets_by_year/                       Year-wise raw data (2006-2025)
+advanced_outputs/                       v2.0 pipeline outputs
+visualization_results/                  v2.0 generated visualizations
 ```
 
 ### Documentation
 
 ```
-PROJECT_COMPLETION_REPORT.txt           Project completion summary
-README.md                               This file
+README.md                               English documentation (this file)
+README_CN.md                            Chinese documentation
+ADVANCED_PIPELINE_2.0_PAPER_EN.tex     IEEE-style academic paper (v2.0)
+FILE_INVENTORY.md                       Complete file and data inventory
+PROJECT_COMPLETION_REPORT.txt           v1.0 completion summary
 ```
+
+### Visualizations and Results
+
+**Version 1.0** (EDA & ML):
+- 11 high-resolution charts (300 DPI)
+- Dashboard visualizations
+- Classification & clustering analysis
+
+**Version 2.0** (Advanced):
+- Network graph visualization (channel similarity)
+- t-SNE embedding projection (cluster separation)
+- Temporal heatmap (yearly trends)
+- Community profiles summary
+- Top channels ranking per cluster
 
 ---
 
-## Analysis Pipeline
+## Pipeline Stages
 
-### Phase 1: Data Preprocessing
-- Input: 155,669 YouTube video records
-- Output: 20 yearly datasets (2006-2025)
-- Tasks: Data cleaning, validation, initial exploration
+### Version 1.0: Classical Analysis (5 Phases)
 
-### Phase 2: Feature Engineering
-- Input: 9 original features
-- Output: 59 engineered features
-  - Text features (12): Title length, word count, special characters, etc.
-  - Temporal features (17): Year, month, day of week, hour, time slots, etc.
-  - Engagement features (19): Engagement rate, like rate, comment rate, viral indicators, etc.
-  - Channel features (15): Channel averages, totals, rankings, tiers, consistency, etc.
-  - Composite features (8): Video vs. channel comparisons, quality scores, etc.
+| Phase | Input | Output | Key Methods |
+|-------|-------|--------|-----------|
+| 1: Preprocessing | 155K raw records | 20 yearly datasets | Data cleaning, validation |
+| 2: Feature Engineering | 9 features | 59 engineered features | Statistical + domain engineering |
+| 3: EDA | 59D features | 11 visualizations | Correlation, distribution analysis |
+| 4: ML Modeling | 59D features | Models + rankings | Classification, clustering, regression |
+| 5: Dashboards | Model results | Interactive viz | Seaborn + Matplotlib |
 
-### Phase 3: Exploratory Data Analysis
-- 6 analysis themes:
-  - Top video rankings analysis
-  - Engagement rate deep dive
-  - Temporal patterns discovery
-  - Channel comparison analysis
-  - Video feature analysis
-  - Comprehensive insights
-- Output: 5 high-resolution visualizations
+### Version 2.0: Advanced Pipeline (5 Modular Stages)
 
-### Phase 4: Machine Learning Modeling
-- Classification: Video engagement level prediction
-  - Logistic Regression
-  - Random Forest (best performance)
-  - Support Vector Machine (SVM)
-- Clustering: Channel type segmentation
-  - K-means clustering
-  - Elbow method + Silhouette analysis
-  - Optimal K determination
-- Prediction: Performance forecasting
-  - Random Forest Regressor
-  - XGBoost Regressor
-- Feature importance analysis
+| Stage | Module | Input | Output | Key Innovation |
+|-------|--------|-------|--------|-----------------|
+| 1 | `llm_embeddings.py` | Video titles | 384D embeddings | Local sentence-transformers |
+| 2 | `feature_fusion.py` | 59D + 384D | 443D fused vectors | Early fusion, channel aggregation |
+| 3 | `graph_construction.py` | 443D channels | Cosine graph (317K edges) | Top-K neighbor filtering |
+| 4 | `community_detection.py` | Graph + embeddings | Dual partitions | KMeans + Louvain modularity |
+| 5 | `temporal_analysis.py` | Year + assignments | 107 temporal records | Year-wise aggregation (2006-2025) |
 
-### Phase 5: Interactive Dashboards
-- 3 comprehensive dashboards:
-  - Overall data overview
-  - Classification model performance
-  - Clustering analysis results
+**Key Characteristics**:
+- ✅ Local-first: No external APIs or heavy infrastructure
+- ✅ Modular: Each stage independent and reusable
+- ✅ Reproducible: Fixed random seeds, deterministic execution
+- ✅ Theory-grounded: Mathematical derivations for all methods
+- ✅ Documented: Full academic paper with formulas and references
 
 ---
 
 ## Technical Stack
 
-**Programming Language**: Python 3.x
+### Version 1.0 Dependencies
+- **Data**: pandas, numpy
+- **ML**: scikit-learn, xgboost
+- **Viz**: matplotlib, seaborn
+- **IDE**: Jupyter Notebook, VS Code
 
-**Data Processing**:
-- pandas: Data manipulation
-- numpy: Numerical computing
+### Version 2.0 Additional Dependencies
+- **Embeddings**: sentence-transformers (all-MiniLM-L12-v2, 384D)
+- **Graph**: networkx, python-louvain
+- **Optimization**: GPU support via CUDA 11.8+ (optional)
 
-**Machine Learning**:
-- scikit-learn: ML algorithms
-- xgboost: Gradient boosting
-
-**Visualization**:
-- matplotlib: Static plots
-- seaborn: Statistical visualizations
-
-**Development Environment**:
-- Jupyter Notebook
-- VS Code
+### Environment Specifications
+- **Python Version**: 3.10+ (3.13.7 tested on Windows)
+- **Execution Time**: CPU ~200s, GPU (4070S) ~65s
+- **Memory**: ~4 GB for embeddings + graph
+- **OS**: Windows, Linux, macOS supported
 
 ---
 
-## Key Features
+## Advanced Features (v2.0)
 
-### Feature Engineering (59 Total Features)
+### Multi-View Embedding Fusion
 
-**Text Features (12)**:
-- Title length, word count
-- Special character count and ratio
-- Uppercase letter ratio
-- Digit count
-- Question mark presence
-- Exclamation mark count
+**Architecture**:
+```
+Video Title → Encoder (384D) → Average  
+Metadata    → Encoder (384D) ──┘ → Fused Vector (384D)
 
-**Temporal Features (17)**:
-- Publish year, month, day of week, hour
-- Weekend indicator
-- Prime time indicator (7-10 PM)
-- Work hours indicator
-- Holiday season indicator
-- Days since publish
+Combined with Engineered Features (59D) → Final 443D Vector
+```
 
-**Engagement Features (19)**:
-- Engagement rate (main metric)
-- Like rate, comment rate
-- Weighted engagement
-- Like-to-comment ratio
-- Viral video indicator
-- Ultra-viral indicator
-- Unpopular video indicator
+**Methods**:
+- Local sentence-transformers: all-MiniLM-L12-v2
+- Early fusion at video level
+- Channel aggregation via mean pooling
+- Normalization and deterministic processing
 
-**Channel Features (15)**:
-- Channel average views, likes, comments
-- Channel total views
-- Channel video count
-- Channel tier classification
-- Channel consistency ratio
-- Channel engagement rate
+### Graph Construction
+- **Similarity Metric**: Cosine distance (scale-invariant)
+- **Sparsity**: Top-K neighbors (K=20, threshold=0.4)
+- **Graph Size**: 15,863 nodes, 317,118 edges
+- **Symmetrization**: Union of mutual neighborhoods
+- **Complexity**: O(N·K·log K) for efficient scaling
 
-**Composite Features (8)**:
-- Title length × engagement interaction
-- Freshness × quality score
-- Views vs. channel average
-- Content quality score
-- Publishing timing score
+### Dual Clustering Perspectives
 
-### Machine Learning Models
+**KMeans (Embedding Space)**:
+- Objective: Minimize within-cluster squared distances
+- Clusters: 10 (optimal from elbow method)
+- Initialization: k-means++ seeding
+- Assumption: Spherical, well-separated clusters
 
-**Classification Models**:
-- Binary classification: High vs. Low engagement
-- Models: Logistic Regression, Random Forest, SVM
-- Evaluation: Accuracy, Precision, Recall, F1-Score
-- Feature importance ranking
+**Louvain (Graph Space)**:
+- Objective: Maximize modularity Q
+- Communities: 17 (from greedy optimization)
+- Gain criterion: Resolution γ=1.0
+- Assumption: Relational cohesion, scale-free structure
 
-**Clustering Models**:
-- K-means clustering on channels
-- Optimal K selection using elbow method and silhouette coefficient
-- Channel segmentation analysis
-
-**Regression Models**:
-- Target: Engagement rate prediction
-- Models: Random Forest Regressor, XGBoost
-- Evaluation: R², RMSE, MAE
+### Temporal Evolution Analysis
+- **Granularity**: Year-wise aggregation (2006-2025)
+- **Metrics**: Video count, total views per cluster/year
+- **Normalization**: Handles missing years with zero-filling
+- **Interpretations**: Lifecycle trends, seasonal effects, growth patterns
 
 ---
 
 ## Installation and Usage
 
-### Prerequisites
+### Version 1.0: Quick Start
 
 ```bash
-Python 3.x
-pandas
-numpy
-matplotlib
-seaborn
-scikit-learn
-xgboost
-jupyter
-```
+# 1. Clone repository
+git clone https://github.com/xuzijan/YouTube-Video-Data-Analysis-Project.git
+cd YouTube-Video-Data-Analysis-Project
 
-### Installation
-
-```bash
+# 2. Install dependencies
 pip install pandas numpy matplotlib seaborn scikit-learn xgboost jupyter
+
+# 3. Run notebooks sequentially
+jupyter notebook phase1_youtube_year_analysis.ipynb
+# ... continue with phase2 through phase5
 ```
 
-### Quick Start
+### Version 2.0: Advanced Pipeline
 
-1. Clone the repository
-2. Ensure `youtube_video.csv` is in the project root directory
-3. Run the notebooks in sequence:
-   - `phase1_youtube_year_analysis.ipynb`
-   - `phase2_feature_engineering.ipynb`
-   - `phase3_eda_analysis.ipynb`
-   - `phase4_clustering_prediction.ipynb`
-   - `phase5_insights_dashboard.ipynb`
+```bash
+# 1. Install advanced dependencies
+pip install sentence-transformers networkx python-louvain
 
-### File Structure
+# 2. Run complete pipeline
+python -m advanced.run_pipeline
 
+# 3. Generate visualizations
+python resultphoto.py
 ```
-5002/
-├── phase1_youtube_year_analysis.ipynb
-├── phase2_feature_engineering.ipynb
-├── phase3_eda_analysis.ipynb
-├── phase4_clustering_prediction.ipynb
-├── phase5_insights_dashboard.ipynb
-├── youtube_video.csv
-├── engineered_features_raw.csv
-├── engineered_features_scaled.csv
-├── feature_engineering_metadata.json
-├── photo/                          (11 visualization files)
-├── datasets_by_year/               (20 yearly datasets)
-├── PROJECT_COMPLETION_REPORT.txt
-└── README.md
+
+**Pipeline Output Locations**:
+- `advanced_outputs/` - Embeddings, features, clusters, graphs
+- `visualization_results/` - Network, t-SNE, temporal heatmaps
+
+### Loading Results for Analysis
+
+```python
+import numpy as np
+import pandas as pd
+
+# Load embeddings and features
+embeddings = np.load('advanced_outputs/channel_fused_features.npy')
+metadata = pd.read_csv('advanced_outputs/channel_fused_features_index.csv')
+
+# Load clustering results
+clusters = pd.read_csv('advanced_outputs/channel_clusters_communities.csv')
+top_channels = pd.read_csv('advanced_outputs/top_channels_per_cluster.csv')
+
+# Load graph and temporal data
+graph_edges = pd.read_csv('advanced_outputs/channel_graph_edges.csv')
+temporal_stats = pd.read_csv('advanced_outputs/cluster_temporal_stats.csv')
 ```
+
+---
+
+## Core Contributions
+
+### Theoretical Foundations (v2.0)
+
+1. **Text Embedding Module**: Local sentence-transformers with proper preprocessing
+2. **Feature Fusion Strategy**: Early fusion derivation and channel aggregation via mean pooling
+3. **Graph Construction**: Cosine similarity with top-K sparsification
+4. **Dual Clustering Theory**:
+   - KMeans objective: $J(\{C_k\},\{\mu_k\}) = \sum_{k=1}^{K} \sum_{x_i\in C_k} \|x_i - \mu_k\|^2$
+   - Louvain modularity: $Q = \frac{1}{2m} \sum_{i,j} \left( A_{ij} - \frac{k_i k_j}{2m} \right) \delta(c_i, c_j)$
+5. **Temporal Aggregation**: Year-wise normalization and lifecycle pattern extraction
+6. **t-SNE Dimensionality Reduction**: Local neighborhood preservation for visualization
+
+### Practical Innovations
+
+- ✅ **Local-first approach**: No cloud dependencies, full reproducibility
+- ✅ **Modular architecture**: Each stage independently testable and reusable
+- ✅ **Deterministic execution**: Fixed seeds for consistency across runs
+- ✅ **Theory-grounded**: All methods backed by mathematical derivations
+- ✅ **Scale efficiency**: Handles 155K videos × 15K channels on consumer hardware
+- ✅ **Windows native**: Tested on Windows PowerShell v5.1
 
 ---
 
 ## Key Findings
 
-### Data Analysis Insights
+### Data Statistics
+- **Total videos analyzed**: 155,704 across 15,863 channels
+- **Time span**: 2006-2025 (20 years)
+- **Total views**: ~202.6 billion
+- **Graph structure**: 317,118 edges in channel similarity network
+- **Average channel degree**: 40 neighbors
 
-1. **Top Video Characteristics**
-   - View counts reach billions
-   - Engagement rates show long-tail distribution
-   - Viral videos represent small percentage
+### Clustering Insights
+- **KMeans clusters**: 10 distinct groups in embedding space
+- **Louvain communities**: 17 communities in graph space
+- **Cluster-community agreement**: Significant overlap in major blocks
+- **Graph density**: 0.25% (sparse, indicating selective neighborhoods)
 
-2. **Temporal Patterns**
-   - Publishing time impact analysis
-   - Day of week and seasonal effects
-   - Optimal publishing windows identified
-
-3. **Channel Analysis**
-   - Significant scale differences between channels
-   - Channel consistency vs. engagement correlation
-   - Four-tier channel classification
-
-4. **Engagement Deep Dive**
-   - Overall engagement rate statistics
-   - Viral video feature identification
-   - Like-to-comment ratio patterns
-   - View count segment analysis
-
-### Machine Learning Results
-
-**Classification Performance**:
-- High accuracy achieved
-- Random Forest identified as best model
-- Top features identified through importance analysis
-
-**Clustering Results**:
-- Optimal cluster number determined
-- Channel segments identified
-- Distinct characteristics per cluster
-
-**Prediction Models**:
-- Strong predictive performance
-- Feature importance ranking completed
-- Key drivers of engagement identified
+### Temporal Dynamics
+- **Recent growth**: 2024-2025 clusters show exponential expansion
+- **Legacy decline**: Early YouTube channels show stability
+- **Lifecycle patterns**: Identifiable growth → plateau → decline cycles
+- **Content evolution**: Semantic shifts detected via embeddings
 
 ---
 
-## Project Highlights
+## Project Status & Roadmap
 
-- **Large-scale data**: 155,669 records spanning 19 years
-- **Comprehensive analysis**: 5-phase complete pipeline
-- **Advanced feature engineering**: 6.5x feature expansion
-- **Multiple ML algorithms**: Classification, clustering, regression
-- **Professional visualizations**: 11 high-resolution charts (300 DPI)
-- **Clean code**: English comments with Chinese function descriptions
-- **Reproducible**: Complete Jupyter notebooks with clear structure
+### ✅ Completed (v1.0 + v2.0)
+- Full YouTube data analysis pipeline (155K videos, 20 years)
+- Feature engineering (9 → 59 dimensions)
+- Classical ML modeling (classification, clustering, regression)
+- Advanced embedding fusion (443-dimensional vectors)
+- Dual clustering perspectives (embeddings + graph)
+- Temporal evolution analysis
+- IEEE-style academic paper with full derivations
+
+### 📋 Planned (v3.0)
+- [ ] Web dashboard (Flask/FastAPI)
+- [ ] Real-time update pipeline
+- [ ] Multi-language support
+- [ ] Recommendation system integration
+- [ ] Causal inference on content success
 
 ---
 
-## Notes
+## Citation
 
-- All code comments are in English for international standards
-- Each notebook begins with a Chinese function description
-- Visualizations are saved at 300 DPI for publication quality
-- Feature engineering pipeline is modular and reusable
+If you use this project in research, please cite:
+
+```bibtex
+@article{YouTube2025,
+  title={Advanced Pipeline 2.0 for YouTube Ecosystem Analysis: 
+         Multi-View Embedding Fusion, Graph Structure, and Temporal Dynamics},
+  author={Analysis Team},
+  year={2025},
+  note={Local, Reproducible, and Theory-Grounded}
+}
+```
 
 ---
+
+## License
+
+MIT License - See LICENSE file for details
+
+## Contributing
+
+Contributions welcome! Please feel free to submit issues or pull requests.
+
+## Contact
+
+For questions or collaboration inquiries, please contact the project maintainer.
+
+---
+
+**Project Statistics**:
+- 📊 50+ files | 🧮 3,500+ lines of code | 💾 2.5 GB data
+- ⚡ Execution time: 65s (GPU) or 200s (CPU)
+- 📈 20-year dataset | 🌐 155K+ videos
+- 🎯 100% reproducible with fixed seeds

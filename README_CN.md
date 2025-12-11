@@ -1,336 +1,372 @@
-# YouTube视频数据分析项目（readme由人工智能生成）
+# YouTube 视频数据分析项目
 
 [English](README.md) | 中文
 
-一个全面的数据科学项目，分析了155,669个YouTube视频，时间跨度19年（2006-2025），包含高级特征工程、机器学习建模和交互式可视化。
+一个全面的数据科学项目，分析了155,000多个YouTube视频，时间跨度20年（2006-2025），包含高级特征工程、多视角嵌入融合、图分析和可复现的模块化管道。
+
+**项目状态**: ✅ 版本 1.0 完成 + ✅ 版本 2.0 完成（高级管道）  
+**完整范围**: 50+ 文件 | 3,500+ 行代码 | 2.5 GB 数据 | 20 年时间跨度
 
 ---
 
-## 项目概述
+## 项目概览
 
-本项目将数据科学方法应用于YouTube视频数据，包括：
-- 特征工程（9个 → 59个特征）
+本项目提供**两个互补的版本**：
+
+### 版本 1.0：经典 ML 管道（5 阶段笔记本分析）
+- 特征工程（9 → 59 维）
 - 探索性数据分析（EDA）
 - 机器学习分类和聚类
 - 预测建模
 - 交互式仪表板
 
+### 版本 2.0：高级管道（模块化 Python 框架）
+- **本地句子级转换器嵌入**（384D）用于语义理解
+- **多视角特征融合**（443D 总和：59 工程特征 + 384 嵌入）
+- **图构建**采用余弦相似性（15,863 个节点，317K 条边）
+- **双聚类**：KMeans（嵌入空间）+ Louvain（图空间）
+- **20 年时间演化分析**
+- **理论依据的推导**和完整文档
+
 ### 关键指标
 
 | 指标 | 数值 | 说明 |
 |------|------|------|
-| **数据规模** | 155,669条记录 | 19年历史数据 |
-| **特征数量** | 59个工程特征 | 从9个原始特征扩展6.5倍 |
-| **分类准确率** | 高准确率 | 随机森林分类器 |
-| **聚类质量** | 最优K值确定 | K-means轮廓系数分析 |
-| **可视化** | 11个图表 | 高分辨率（300 DPI） |
-| **笔记本** | 5个完整 | 完整分析流程 |
+| **数据集** | 155,704 条视频 | 2006-2025（20 年） |
+| **频道数** | 15,863 个独特 | 全球多样性 |
+| **特征 (v1.0)** | 59 个工程特征 | 从 9 个原始特征扩展 6.5 倍 |
+| **嵌入 (v2.0)** | 384D + 59D | 融合 443 维向量 |
+| **图 (v2.0)** | 317K 条边 | 顶 K 余弦相似性 |
+| **聚类 (v2.0)** | 10 + 17 | KMeans + Louvain 社区 |
+| **可视化** | 20+ 图表 | 高分辨率（300 DPI） |
+| **笔记本 (v1.0)** | 5 个完整 | 完整分析管道 |
+| **Python 模块 (v2.0)** | 8 个模块化 | 可复现，理论依据 |
 
 ---
 
 ## 项目结构
 
-### 分析笔记本（5个文件）
+### 版本 1.0：核心笔记本（5 个文件）
 
 ```
 phase1_youtube_year_analysis.ipynb      数据预处理和年度分析
-phase2_feature_engineering.ipynb        特征工程（9 → 59个特征）
+phase2_feature_engineering.ipynb        特征工程（9 → 59 特征）
 phase3_eda_analysis.ipynb               探索性数据分析
-phase4_clustering_prediction.ipynb      机器学习建模（分类、聚类、预测）
+phase4_clustering_prediction.ipynb      ML 建模（分类、聚类、预测）
 phase5_insights_dashboard.ipynb         交互式仪表板
+```
+
+### 版本 2.0：高级管道模块
+
+```
+advanced/
+├── __init__.py
+├── config.py                           全局配置管理
+├── run_pipeline.py                     主管道入口
+│
+├── llm_embeddings.py                   阶段 1：本地句子级转换器嵌入
+├── feature_fusion.py                   阶段 2：多视角特征融合（443D）
+├── graph_construction.py               阶段 3：频道相似图（余弦顶K）
+├── community_detection.py              阶段 4：双聚类（KMeans + Louvain）
+├── temporal_analysis.py                阶段 5：逐年时间演化
+└── export_for_web.py                   网页导出（v3.0 预留）
+
+resultphoto.py                          高级可视化生成脚本
 ```
 
 ### 数据文件
 
 ```
-youtube_video.csv                       原始数据集（32 MB）
-engineered_features_raw.csv             原始工程特征（109 MB）
-engineered_features_scaled.csv          标准化特征（207 MB）
+youtube_video.csv                       原始数据集（~155K 视频）
+engineered_features_raw.csv             原始工程特征（59D）
+engineered_features_scaled.csv          标准化工程特征（59D，已归一化）
 feature_engineering_metadata.json       特征元数据
-datasets_by_year/                       20个年度数据集（2006-2025）
-```
 
-### 可视化文件（photo/文件夹中的11个PNG文件）
-
-```
-仪表板可视化（3个文件）：
-  dashboard_overview.png                整体数据概览
-  dashboard_classification.png          分类模型性能
-  dashboard_clustering.png              聚类分析结果
-
-EDA分析图表（5个文件）：
-  top_videos_analysis.png               顶级视频分析
-  engagement_analysis.png               参与度分析
-  temporal_patterns.png                 时间模式
-  channel_comparison.png                频道对比
-  feature_correlation_heatmap.png       特征相关性热力图
-  feature_variance.png                  特征方差分析
-
-机器学习模型结果（3个文件）：
-  classification_analysis.png           分类结果
-  channel_clustering_analysis.png       频道聚类结果
+datasets_by_year/                       按年份原始数据（2006-2025）
+advanced_outputs/                       v2.0 管道输出
+visualization_results/                  v2.0 生成的可视化
 ```
 
 ### 文档
 
 ```
-PROJECT_COMPLETION_REPORT.txt           项目完成总结
-README.md                               英文版说明文档
-README_CN.md                            本文件（中文版）
+README.md                               英文文档
+README_CN.md                            中文文档（本文件）
+ADVANCED_PIPELINE_2.0_PAPER_EN.tex     IEEE 风格学术论文（v2.0）
+FILE_INVENTORY.md                       完整文件和数据清单
+PROJECT_COMPLETION_REPORT.txt           v1.0 完成总结
 ```
+
+### 可视化和结果
+
+**版本 1.0**（EDA 和 ML）：
+- 11 个高分辨率图表（300 DPI）
+- 仪表板可视化
+- 分类与聚类分析
+
+**版本 2.0**（高级）：
+- 网络图可视化（频道相似度）
+- t-SNE 嵌入投影（聚类分离）
+- 时间热力图（年度趋势）
+- 社区档案总结
+- 每个聚类的顶级频道排名
 
 ---
 
-## 分析流程
+## 管道阶段
 
-### 阶段1：数据预处理
-- 输入：155,669条YouTube视频记录
-- 输出：20个年度数据集（2006-2025）
-- 任务：数据清洗、验证、初步探索
+### 版本 1.0：经典分析（5 个阶段）
 
-### 阶段2：特征工程
-- 输入：9个原始特征
-- 输出：59个工程特征
-  - 文本特征（12个）：标题长度、词数、特殊字符等
-  - 时间特征（17个）：年、月、星期、小时、时段等
-  - 参与度特征（19个）：参与率、点赞率、评论率、病毒指标等
-  - 频道特征（15个）：频道平均值、总计、排名、层级、一致性等
-  - 复合特征（8个）：视频与频道对比、质量评分等
+| 阶段 | 输入 | 输出 | 关键方法 |
+|------|------|------|--------|
+| 1：预处理 | 155K 原始记录 | 20 个按年数据集 | 数据清洗、验证 |
+| 2：特征工程 | 9 个特征 | 59 个工程特征 | 统计 + 域特征 |
+| 3：EDA | 59D 特征 | 11 个可视化 | 相关性、分布分析 |
+| 4：ML 建模 | 59D 特征 | 模型 + 排名 | 分类、聚类、回归 |
+| 5：仪表板 | 模型结果 | 交互式可视化 | Seaborn + Matplotlib |
 
-### 阶段3：探索性数据分析
-- 6个分析主题：
-  - 顶级视频排名分析
-  - 参与度深度分析
-  - 时间模式发现
-  - 频道对比分析
-  - 视频特征分析
-  - 综合洞察
-- 输出：5个高分辨率可视化
+### 版本 2.0：高级管道（5 个模块阶段）
 
-### 阶段4：机器学习建模
-- 分类：视频参与度等级预测
-  - 逻辑回归
-  - 随机森林（最佳性能）
-  - 支持向量机（SVM）
-- 聚类：频道类型分割
-  - K-means聚类
-  - 肘部法则 + 轮廓系数分析
-  - 最优K值确定
-- 预测：性能预测
-  - 随机森林回归器
-  - XGBoost回归器
-- 特征重要性分析
+| 阶段 | 模块 | 输入 | 输出 | 创新点 |
+|------|------|------|------|--------|
+| 1 | `llm_embeddings.py` | 视频标题 | 384D 嵌入 | 本地句子级转换器 |
+| 2 | `feature_fusion.py` | 59D + 384D | 443D 融合向量 | 早期融合，频道聚合 |
+| 3 | `graph_construction.py` | 443D 频道 | 余弦图（317K 边） | 顶 K 邻域过滤 |
+| 4 | `community_detection.py` | 图 + 嵌入 | 双分割 | KMeans + Louvain 模块性 |
+| 5 | `temporal_analysis.py` | 年份 + 分配 | 107 个时间记录 | 逐年聚合（2006-2025） |
 
-### 阶段5：交互式仪表板
-- 3个综合仪表板：
-  - 整体数据概览
-  - 分类模型性能
-  - 聚类分析结果
+**关键特性**：
+- ✅ 本地优先：无需外部 API 或重型基础设施
+- ✅ 模块化：每个阶段独立且可重用
+- ✅ 可复现：固定随机种子，确定性执行
+- ✅ 理论依据：所有方法都有数学推导支持
+- ✅ 完整文档：包含公式和参考的学术论文
 
 ---
 
 ## 技术栈
 
-**编程语言**：Python 3.x
+### 版本 1.0 依赖
+- **数据处理**：pandas、numpy
+- **机器学习**：scikit-learn、xgboost
+- **可视化**：matplotlib、seaborn
+- **IDE**：Jupyter Notebook、VS Code
 
-**数据处理**：
-- pandas：数据操作
-- numpy：数值计算
+### 版本 2.0 额外依赖
+- **嵌入**：sentence-transformers（all-MiniLM-L12-v2，384D）
+- **图**：networkx、python-louvain
+- **优化**：CUDA 11.8+ GPU 支持（可选）
 
-**机器学习**：
-- scikit-learn：机器学习算法
-- xgboost：梯度提升
-
-**可视化**：
-- matplotlib：静态图表
-- seaborn：统计可视化
-
-**开发环境**：
-- Jupyter Notebook
-- VS Code
+### 环境要求
+- **Python 版本**：3.10+（Windows 上测试 3.13.7）
+- **执行时间**：CPU ~200 秒，GPU (4070S) ~65 秒
+- **内存需求**：~4 GB（嵌入 + 图）
+- **操作系统**：Windows、Linux、macOS 均支持
 
 ---
 
-## 核心特征
+## 高级特性（v2.0）
 
-### 特征工程（共59个特征）
+### 多视角嵌入融合
 
-**文本特征（12个）**：
-- 标题长度、词数
-- 特殊字符数量和比率
-- 大写字母比率
-- 数字计数
-- 问号存在
-- 感叹号数量
+**架构**：
+```
+视频标题 → 编码器（384D） → 平均
+元数据  → 编码器（384D） ──┘ → 融合向量（384D）
 
-**时间特征（17个）**：
-- 发布年、月、星期、小时
-- 周末指标
-- 黄金时段指标（晚7-10点）
-- 工作时间指标
-- 节假日季节指标
-- 发布后天数
+与工程特征（59D）结合 → 最终 443D 向量
+```
 
-**参与度特征（19个）**：
-- 参与率（主要指标）
-- 点赞率、评论率
-- 加权参与度
-- 点赞评论比
-- 病毒视频指标
-- 超级病毒指标
-- 不受欢迎视频指标
+**方法**：
+- 本地句子级转换器：all-MiniLM-L12-v2
+- 视频级早期融合
+- 频道级聚合（平均池化）
+- 归一化和确定性处理
 
-**频道特征（15个）**：
-- 频道平均观看、点赞、评论
-- 频道总观看数
-- 频道视频数量
-- 频道层级分类
-- 频道一致性比率
-- 频道参与率
+### 图构建
+- **相似性度量**：余弦距离（尺度不变）
+- **稀疏性**：顶 K 邻域（K=20，阈值=0.4）
+- **图大小**：15,863 个节点，317,118 条边
+- **对称化**：相互邻域的并集
+- **复杂度**：高效缩放的 O(N·K·log K)
 
-**复合特征（8个）**：
-- 标题长度×参与度交互
-- 新鲜度×质量评分
-- 观看数与频道平均值对比
-- 内容质量评分
-- 发布时机评分
+### 双聚类视角
 
-### 机器学习模型
+**KMeans（嵌入空间）**：
+- 目标：最小化类内平方距离
+- 聚类数：10（从肘部法则确定）
+- 初始化：k-means++ 种子
+- 假设：球形、良好分离的聚类
 
-**分类模型**：
-- 二元分类：高参与度 vs 低参与度
-- 模型：逻辑回归、随机森林、SVM
-- 评估：准确率、精确率、召回率、F1分数
-- 特征重要性排名
+**Louvain（图空间）**：
+- 目标：最大化模块性 Q
+- 社区数：17（从贪心优化得出）
+- 增益准则：分辨率 γ=1.0
+- 假设：关系凝聚力，无标度结构
 
-**聚类模型**：
-- 频道K-means聚类
-- 使用肘部法则和轮廓系数选择最优K值
-- 频道分割分析
-
-**回归模型**：
-- 目标：参与率预测
-- 模型：随机森林回归器、XGBoost
-- 评估：R²、RMSE、MAE
+### 时间演化分析
+- **粒度**：逐年聚合（2006-2025）
+- **指标**：每个聚类/年的视频数、总观看数
+- **归一化**：缺失年份用零填充
+- **解释**：生命周期趋势、季节效应、增长模式
 
 ---
 
 ## 安装和使用
 
-### 前置要求
+### 版本 1.0：快速开始
 
 ```bash
-Python 3.x
-pandas
-numpy
-matplotlib
-seaborn
-scikit-learn
-xgboost
-jupyter
-```
+# 1. 克隆仓库
+git clone https://github.com/xuzijan/YouTube-Video-Data-Analysis-Project.git
+cd YouTube-Video-Data-Analysis-Project
 
-### 安装
-
-```bash
+# 2. 安装依赖
 pip install pandas numpy matplotlib seaborn scikit-learn xgboost jupyter
+
+# 3. 按顺序运行笔记本
+jupyter notebook phase1_youtube_year_analysis.ipynb
+# ... 继续运行 phase2 到 phase5
 ```
 
-### 快速开始
+### 版本 2.0：高级管道
 
-1. 克隆仓库
-2. 确保 `youtube_video.csv` 在项目根目录
-3. 按顺序运行笔记本：
-   - `phase1_youtube_year_analysis.ipynb`
-   - `phase2_feature_engineering.ipynb`
-   - `phase3_eda_analysis.ipynb`
-   - `phase4_clustering_prediction.ipynb`
-   - `phase5_insights_dashboard.ipynb`
+```bash
+# 1. 安装高级依赖
+pip install sentence-transformers networkx python-louvain
 
-### 文件结构
+# 2. 运行完整管道
+python -m advanced.run_pipeline
 
+# 3. 生成可视化
+python resultphoto.py
 ```
-5002/
-├── phase1_youtube_year_analysis.ipynb
-├── phase2_feature_engineering.ipynb
-├── phase3_eda_analysis.ipynb
-├── phase4_clustering_prediction.ipynb
-├── phase5_insights_dashboard.ipynb
-├── youtube_video.csv
-├── engineered_features_raw.csv
-├── engineered_features_scaled.csv
-├── feature_engineering_metadata.json
-├── photo/                          (11个可视化文件)
-├── datasets_by_year/               (20个年度数据集)
-├── PROJECT_COMPLETION_REPORT.txt
-├── README.md                       (英文版)
-└── README_CN.md                    (中文版)
+
+**管道输出位置**：
+- `advanced_outputs/` - 嵌入、特征、聚类、图
+- `visualization_results/` - 网络图、t-SNE、时间热力图
+
+### 加载结果进行分析
+
+```python
+import numpy as np
+import pandas as pd
+
+# 加载嵌入和特征
+embeddings = np.load('advanced_outputs/channel_fused_features.npy')
+metadata = pd.read_csv('advanced_outputs/channel_fused_features_index.csv')
+
+# 加载聚类结果
+clusters = pd.read_csv('advanced_outputs/channel_clusters_communities.csv')
+top_channels = pd.read_csv('advanced_outputs/top_channels_per_cluster.csv')
+
+# 加载图和时间数据
+graph_edges = pd.read_csv('advanced_outputs/channel_graph_edges.csv')
+temporal_stats = pd.read_csv('advanced_outputs/cluster_temporal_stats.csv')
 ```
+
+---
+
+## 核心贡献
+
+### 理论基础（v2.0）
+
+1. **文本嵌入模块**：带有适当预处理的本地句子级转换器
+2. **特征融合策略**：早期融合推导和通过平均池化的频道聚合
+3. **图构建**：采用顶 K 稀疏化的余弦相似性
+4. **双聚类理论**：
+   - KMeans 目标：$J(\{C_k\},\{\mu_k\}) = \sum_{k=1}^{K} \sum_{x_i\in C_k} \|x_i - \mu_k\|^2$
+   - Louvain 模块性：$Q = \frac{1}{2m} \sum_{i,j} \left( A_{ij} - \frac{k_i k_j}{2m} \right) \delta(c_i, c_j)$
+5. **时间聚合**：逐年归一化和生命周期模式提取
+6. **t-SNE 降维**：用于可视化的局部邻域保留
+
+### 实践创新
+
+- ✅ **本地优先方法**：无云依赖，完全可复现
+- ✅ **模块化架构**：每个阶段独立可测试和可重用
+- ✅ **确定性执行**：固定种子保证跨运行一致性
+- ✅ **理论依据**：所有方法都有数学推导支持
+- ✅ **规模效率**：在消费级硬件上处理 155K 视频 × 15K 频道
+- ✅ **Windows 原生**：在 Windows PowerShell v5.1 上测试
 
 ---
 
 ## 关键发现
 
-### 数据分析洞察
+### 数据统计
+- **分析视频总数**：155,704 个，跨越 15,863 个频道
+- **时间跨度**：2006-2025（20 年）
+- **总观看数**：~202.6 十亿
+- **图结构**：频道相似网络中 317,118 条边
+- **平均频道度数**：40 个邻域
 
-1. **顶级视频特征**
-   - 观看数达到数十亿
-   - 参与率呈现长尾分布
-   - 病毒视频占比很小
+### 聚类洞察
+- **KMeans 聚类**：嵌入空间中 10 个不同群组
+- **Louvain 社区**：图空间中 17 个社区
+- **聚类-社区一致性**：主块中显著重叠
+- **图密度**：0.25%（稀疏，表示选择性邻域）
 
-2. **时间模式**
-   - 发布时间影响分析
-   - 星期和季节效应
-   - 识别最佳发布窗口
-
-3. **频道分析**
-   - 频道间规模差异显著
-   - 频道一致性与参与度相关
-   - 四层频道分类
-
-4. **参与度深度分析**
-   - 整体参与率统计
-   - 识别病毒视频特征
-   - 点赞评论比模式
-   - 观看数分段分析
-
-### 机器学习结果
-
-**分类性能**：
-- 实现高准确率
-- 随机森林为最佳模型
-- 通过重要性分析识别关键特征
-
-**聚类结果**：
-- 确定最优聚类数
-- 识别频道分段
-- 每个聚类的独特特征
-
-**预测模型**：
-- 强大的预测性能
-- 完成特征重要性排名
-- 识别参与度关键驱动因素
+### 时间动态
+- **近期增长**：2024-2025 聚类显示指数扩展
+- **遗留下降**：早期 YouTube 频道显示稳定性
+- **生命周期模式**：可识别的增长 → 平台 → 下降循环
+- **内容演化**：通过嵌入检测到的语义转变
 
 ---
 
-## 项目亮点
+## 项目状态与路线图
 
-- **大规模数据**：155,669条记录，跨越19年
-- **全面分析**：5阶段完整流程
-- **高级特征工程**：特征扩展6.5倍
-- **多种机器学习算法**：分类、聚类、回归
-- **专业可视化**：11个高分辨率图表（300 DPI）
-- **清晰代码**：英文注释配中文功能说明
-- **可重现**：完整的Jupyter笔记本，结构清晰
+### ✅ 已完成（v1.0 + v2.0）
+- 完整 YouTube 数据分析管道（155K 视频，20 年）
+- 特征工程（9 → 59 维）
+- 经典 ML 建模（分类、聚类、回归）
+- 高级嵌入融合（443 维向量）
+- 双聚类视角（嵌入 + 图）
+- 时间演化分析
+- IEEE 风格学术论文，包含完整推导
+
+### 📋 计划（v3.0）
+- [ ] 网页仪表板（Flask/FastAPI）
+- [ ] 实时更新管道
+- [ ] 多语言支持
+- [ ] 推荐系统集成
+- [ ] 内容成功因果推断
 
 ---
 
-## 说明
+## 引用
 
-- 所有代码注释均为英文，符合国际标准
-- 每个笔记本开头均有中文功能描述
-- 可视化以300 DPI保存，适合出版质量
-- 特征工程流程模块化且可重用
+如果在研究中使用本项目，请按以下方式引用：
+
+```bibtex
+@article{YouTube2025,
+  title={Advanced Pipeline 2.0 for YouTube Ecosystem Analysis: 
+         Multi-View Embedding Fusion, Graph Structure, and Temporal Dynamics},
+  author={分析团队},
+  year={2025},
+  note={本地、可复现且理论依据}
+}
+```
 
 ---
+
+## 许可证
+
+MIT 许可证 - 详见 LICENSE 文件
+
+## 贡献
+
+欢迎贡献！请随时提交问题或拉取请求。
+
+## 联系方式
+
+如有问题或合作意向，请联系项目维护者。
+
+---
+
+**项目统计**：
+- 📊 50+ 文件 | 🧮 3,500+ 行代码 | 💾 2.5 GB 数据
+- ⚡ 执行时间：65 秒（GPU）或 200 秒（CPU）
+- 📈 20 年数据集 | 🌐 155K+ 视频
+- 🎯 100% 可复现（固定种子）
 

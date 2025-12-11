@@ -13,7 +13,6 @@ class DataPaths:
 @dataclass
 class DeepSeekConfig:
     api_key: str = ""  # keep empty, use DEEPSEEK_API_KEY env if needed for chat
-    # 当前仅用于对话解释，不再用于 embeddings
     base_url: str = "https://api.deepseek.com"
     embedding_model: str = ""
     enabled: bool = False
